@@ -1,5 +1,3 @@
-from json import JSONDecodeError
-
 import requests
 import json
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -26,7 +24,7 @@ def get_data(index):
         rows.append(doc.get('documentDetailUrl', '无链接'))
         data.append(rows)
         print(rows[0] + '\t' + rows[1])
-        with open('latest.txt', 'a', encoding='utf-8') as file:
+        with open('../product/latest.txt', 'a', encoding='utf-8') as file:
             file.write(rows[0] + '\t' + rows[1] + '\r\n')
     return data
 
@@ -61,5 +59,5 @@ def schedule_timer():
 
 
 if __name__ == '__main__':
-    schedule_timer()
-    # loop_data(30)
+    # schedule_timer()
+    loop_data(30)
