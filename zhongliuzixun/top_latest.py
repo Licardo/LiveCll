@@ -12,7 +12,9 @@ def get_data(index):
     url = "http://www.liangyihui.net:8080//api/doc/getdocumentlist"
     data = {'filters':[{'items': [{'filterId': "1", 'type': 1}], 'filterGroupId': 1}], 'head':{'cid': "", 'cver': "", 'sid': "", 'extensions': [{'name': "", 'value': ""}], 'auth': "", 'auth2': ""},'sort':{'pageIdx': index, 'pageSize': 30, 'startTime': 0}}
     req = requests.post(url, data=json.dumps(data), stream=True, headers={'content-type': "application/json", 'Authorization': 'APP appid = 4abf1a,token = 9480295ab2e2eddb8'})
+    list_doc = []
     if req.status_code == 200 and req.content:
+        req_json = None
         try:
             req_json = req.json()
         except json.decoder.JSONDecodeError:
@@ -21,7 +23,7 @@ def get_data(index):
         list_doc = req_json['docGroups'][0]['documents']
     data = []
     for doc in list_doc:
-        rows = []
+        rows = list()
         rows.append(doc.get('title', '无标题'))
         rows.append(doc.get('documentDetailUrl', '无链接'))
         data.append(rows)
@@ -31,8 +33,8 @@ def get_data(index):
     return data
 
 
-def operate_excel(list, name):
-    df = pd.DataFrame(data=list)
+def operate_excel(excel_datas, name):
+    df = pd.DataFrame(data=excel_datas)
     write = pd.ExcelWriter('latest.xls')
     df.to_excel(write, sheet_name=name, index=None)
     write.save()

@@ -16,4 +16,8 @@ if __name__ == '__main__':
     c.extend(a)
     c.extend(b)
     print(c)
+    l = list()
+    l.append('45')
+    l.append('df')
+    print(l)
 
