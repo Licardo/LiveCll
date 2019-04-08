@@ -55,7 +55,7 @@ def loop_data(size):
 def schedule_timer():
     sche = BlockingScheduler()
     # 每天16-18点的0-4分钟执行 执行频率是5秒钟
-    sche.add_job(func=loop_data, args=(30,), trigger='cron', month='1-12',
+    sche.add_job(func=loop_data, args=(1,), trigger='cron', month='1-12',
                  day='1-31', hour='*/1')
     # 每五秒执行一次
     # sche.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
