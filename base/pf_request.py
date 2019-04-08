@@ -3,13 +3,13 @@ import json
 
 
 # 发起post请求
-def post(url, param, header):
+def post(url, param, header, stream=True):
     if type(param) == dict:
         data = json.dump(param)
     elif type(param) == str:
         data = param
     req = requests.post(url, data=data, headers=header)
-    return req.json()
+    return req
 
 
 # 发起get请求
