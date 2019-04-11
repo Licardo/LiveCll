@@ -6,7 +6,7 @@ from base import pf_request
 from base import pf_excel
 
 # 输出目录
-out_dir = '../product/latest.txt'
+out_dir = 'product/latest.txt'
 
 
 # 公众号肿瘤咨询最新新闻
@@ -55,6 +55,7 @@ def loop_data(size):
         datas.extend(data)
     # pf_excel.Excel.write_excel(datas, 'paofan')
     print(time.strftime('%Y-%m-%D %H:%M:%S', time.localtime()))
+    return datas
 
 
 # 定时服务 每天每小时执行一次
@@ -69,4 +70,4 @@ def schedule_timer():
 
 if __name__ == '__main__':
     # schedule_timer()
-    loop_data(30)
+    loop_data(1)
