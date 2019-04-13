@@ -16,7 +16,7 @@ class TopLatest(pf_request.NetBase):
         header = {'content-type': "application/json", 'Authorization': 'APP appid = 4abf1a,token = 9480295ab2e2eddb8'}
         return self.get_data(url, json.dumps(data), header)
 
-    # todo 抽象方法
+    # todo 抽象方法 父类会有声明
     # 网络数据处理逻辑
     def handle_data(self, req_json):
         list_doc = req_json['docGroups'][0]['documents']
