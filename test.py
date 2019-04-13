@@ -2,6 +2,7 @@ from flask import Flask
 import json
 from flask import abort
 from flask import make_response
+from db import test_db
 
 app = Flask(__name__)
 
@@ -30,10 +31,16 @@ def index(task_id):
     return json.dumps(ts[0])
 
 
+@app.route('/todo/list/get_item/<int:page_index>')
+def get_item(page_index):
+    datas = test_db.DbOperator.query(page_index)
+    return json.dumps(datas)
+
+
 @app.errorhandler(404)
 def not_found(error):
     print(error)
-    return make_response(json.dumps({'error':'Not Found'}), 404)
+    return make_response(json.dumps({'error': 'Not Found'}), 404)
 
 
 if __name__ == '__main__':
