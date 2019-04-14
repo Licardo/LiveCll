@@ -12,4 +12,4 @@ class NetGet(object):
         elif type(param) == str:
             data = param
         req = requests.get(url, params=data, headers=header)
-        return req.json()
+        return req.text
