@@ -2,4 +2,4 @@ HOST = 'localhost'
 USER = 'root'
 PW = 'zh326159'
 DATABASE = 'qrz'
-
+CHARSET = 'utf8mb4'

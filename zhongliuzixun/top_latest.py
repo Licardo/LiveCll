@@ -1,11 +1,11 @@
 import json
 from apscheduler.schedulers.blocking import BlockingScheduler
 import time
-from base import pf_request
+from base.net_post import NetPost
 from base import pf_excel
 
 
-class TopLatest(pf_request.NetBase):
+class TopLatest(NetPost):
     # 输出目录
     out_dir = '../product/latest.txt'
 
