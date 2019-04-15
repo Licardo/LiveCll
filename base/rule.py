@@ -6,10 +6,11 @@ from base.net_get import NetGet
 # 最后一位 0：代表调用find()方法，1：代表调用find_all()方法，2：代表同级的字典
 rules = [{'p1': 'div', 'p2': 'id', 'p3': 'js_content', 'p0': 'find'},
          {'p1': 'section', 'p2': 'style', 'p3': 'box-sizing: border-box;', 'p0': 'find'},
-         {'p1': 'a', 'p0': 'find_all', 'child': [{'p1': 'href', 'p0': 'dict'}, {'p1': 'span', 'p0': 'find'}]}]
+         {'p1': 'a', 'p0': 'find_all', 'child': [{'p1': 'href', 'p0': 'dict'}]}]
 
 
 def parse(soup, rules):
+    rels = list()
     for rule in rules:
         flag = rule['p0']
         if flag == 'find':
@@ -25,7 +26,7 @@ def parse(soup, rules):
         elif flag == 'find_all':
             items = list()
             if len(rule) == 2 or len(rule) == 3:
-                items = soup.find_all(rule['p1'])
+                items = [a for a in soup.find_all(rule['p1'])]
             elif len(rule) == 4:
                 if rule[1] == 'id':
                     items = soup.find_all(rule[0], id=rule[2])
@@ -35,10 +36,11 @@ def parse(soup, rules):
                     items = soup.find_all(rule[0], style=rule[2])
             for soup in items:
                 rules = rule['child']
-                parse(soup, rules)
+                f, all = parse(soup, rules)
+                rels.append(f)
         elif flag == 'dict':
             soup = soup[rule['p1']]
-    return soup
+    return soup, rels
 
 
 if __name__ == '__main__':
@@ -50,5 +52,6 @@ if __name__ == '__main__':
     get = NetGet()
     str_json = get.get(url, header=header)
     soup = BeautifulSoup(str_json, 'html.parser')
-    rel = parse(soup, rules)
-    print(rel)
+    rel, rels = parse(soup, rules)
+    print(rels)
+    print(len(rels))
