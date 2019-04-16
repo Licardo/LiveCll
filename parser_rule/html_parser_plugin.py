@@ -1,9 +1,8 @@
+from parser_rule.html_parser import HtmlParser
 from bs4 import BeautifulSoup
-from rule.html_parser import HtmlParser
 
 
 class SoupBeautifulParser(HtmlParser):
-    soup = BeautifulSoup()
 
     def find(self, soup, element, key, value):
         if key is None:
@@ -27,3 +26,6 @@ class SoupBeautifulParser(HtmlParser):
         elif key == 'style':
             items = soup.find_all(element, style=value)
         return items
+
+    def get_parser(self):
+        return BeautifulSoup(self.json, self.type)

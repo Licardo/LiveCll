@@ -20,7 +20,7 @@ class ProfessionalPoint(NetGet):
             href = item['href']
             print(href)
             print(item.find('span').get_text())
-        pass
+        print(len(items))
 
 
 if __name__ == '__main__':
