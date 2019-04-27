@@ -60,4 +60,4 @@ class TopLatest(NetPost):
 if __name__ == '__main__':
     # schedule_timer()
     top = TopLatest()
-    top.loop_data(10)
+    top.loop_data(30)
