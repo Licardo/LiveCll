@@ -18,6 +18,7 @@ if __name__ == '__main__':
     parser = SoupBeautifulParser(str_json, 'html.parser')
     sin, mul = r.parse(parser.get_parser(), rules, parser)
     print(sin)
-    print(mul)
+    for span in mul:
+        print(span.get_text())
     print(len(mul))
 

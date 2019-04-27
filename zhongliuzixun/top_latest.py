@@ -3,6 +3,8 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import time
 from base.net_post import NetPost
 from base import pf_excel
+from base import utils
+from zhongliuzixun import top_utils
 
 
 class TopLatest(NetPost):
@@ -12,7 +14,9 @@ class TopLatest(NetPost):
     # 公众号肿瘤咨询最新新闻
     def get_data_plugin(self, index):
         url = "http://www.liangyihui.net:8080//api/doc/getdocumentlist"
-        data = {'filters': [{'items': [{'filterId': "1", 'type': 1}], 'filterGroupId': 1}], 'head':{'cid': "", 'cver': "", 'sid': "", 'extensions': [{'name': "", 'value': ""}], 'auth': "", 'auth2': ""}, 'sort': {'pageIdx': index, 'pageSize': 30, 'startTime': 0}}
+        data = {'filters': [{'items': [{'filterId': "1", 'type': 1}], 'filterGroupId': 1}], 'head': {
+            'cid': "", 'cver': "", 'sid': "", 'extensions': [{'name': "", 'value': ""}], 'auth': "", 'auth2': ""},
+                'sort': {'pageIdx': index, 'pageSize': 30, 'startTime': 0}}
         header = {'content-type': "application/json", 'Authorization': 'APP appid = 4abf1a,token = 9480295ab2e2eddb8'}
         return self.get_data(url, json.dumps(data), header)
 
@@ -22,13 +26,13 @@ class TopLatest(NetPost):
         list_doc = req_json['docGroups'][0]['documents']
         data = []
         for doc in list_doc:
-            rows = list()
-            rows.append(doc.get('title', '无标题'))
-            rows.append(doc.get('documentDetailUrl', '无链接'))
-            data.append(rows)
-            print(rows[0] + '\t' + rows[1])
-            with open(self.out_dir, 'a', encoding='utf-8') as file:
-                file.write(rows[0] + '\t' + rows[1] + '\r\n')
+            title = doc.get('title', '无标题')
+            if utils.Utils.filter_content(title, top_utils.TopUtils.keys):
+                row = top_utils.TopUtils.change_dict(doc)
+                data.append(row)
+                # print(rows[0] + '\t' + rows[1])
+                with open(self.out_dir, 'a', encoding='utf-8') as file:
+                    file.write(str(row) + '\r\n')
         return data
 
     # 循环获取多页数据
@@ -39,7 +43,8 @@ class TopLatest(NetPost):
             data = self.get_data_plugin(i)
             datas.extend(data)
         # pf_excel.Excel.write_excel(datas, 'paofan')
-        print(time.strftime('%Y-%m-%D %H:%M:%S', time.localtime()))
+        print(datas)
+        print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
         return datas
 
     # 定时服务 每天每小时执行一次
@@ -55,4 +60,4 @@ class TopLatest(NetPost):
 if __name__ == '__main__':
     # schedule_timer()
     top = TopLatest()
-    top.loop_data(1)
+    top.loop_data(10)

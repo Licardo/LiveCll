@@ -1,4 +1,5 @@
 from db import db_base
+from zhongliuzixun import top_latest
 
 
 class DbOperator:
@@ -8,11 +9,14 @@ class DbOperator:
         db = db_base.DbBase.connect()
         cursor = db.cursor()
         index = 0
-        sql = 'insert into cll_test(id, title, detail) values (%s, %s, %s) '
         for data in datas:
             # try:
             index += 1
-            cursor.execute(sql, (index, data[0], data[1]))
+            sql = 'insert into cll (id, title, sub_title, url, image, image_urls, description, source, platform, ' \
+                  'level, top, type) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s ) '
+            cursor.execute(sql, (index, data['title'], data['sub_title'], data['url'], data['image'],
+                                 data['image_urls'], data['description'], data['source'], data['platform'],
+                                 data['level'], data['top'], data['type']))
             db.commit()
             # except pymysql.err.ProgrammingError:
             #     db.rollback()
@@ -36,10 +40,10 @@ class DbOperator:
 
     @staticmethod
     def operate():
-        # lat = top_latest
-        # datas = lat.loop_data(30)
-        # DbOperator.insert(datas)
-        DbOperator.query(2)
+        lat = top_latest.TopLatest()
+        datas = lat.loop_data(30)
+        DbOperator.insert(datas)
+        # DbOperator.query(2)
 
 
 if __name__ == '__main__':
