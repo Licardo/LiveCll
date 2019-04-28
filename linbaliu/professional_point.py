@@ -5,6 +5,7 @@ from db import db_info
 from db import db_operate
 
 
+# 淋巴瘤之家-专家说
 class ProfessionalPoint(NetGet):
 
     @staticmethod

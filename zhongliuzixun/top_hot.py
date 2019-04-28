@@ -5,6 +5,7 @@ from base import utils
 from db import db_operate
 
 
+# 肿瘤咨询-最热
 class TopHot(NetPost):
 
     def handle_data(self, json_str):

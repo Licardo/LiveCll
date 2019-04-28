@@ -17,6 +17,7 @@ class Rule(object):
              {'p1': 'section', 'p2': 'style', 'p3': 'box-sizing: border-box;', 'p0': 'find'},
              {'p1': 'a', 'p0': 'find_all', 'child': [{'p1': 'span', 'p0': 'find'}]}]
 
+    # 解析入口
     def parse(self, soup, rules, parser: HtmlParser):
         if rules is None:
             return None, None
@@ -27,6 +28,8 @@ class Rule(object):
 
     def parse_item(self, soup, rule_, parser: HtmlParser):
         arr = list()
+        if soup is None:
+            return soup, arr
         flag = rule_['p0']
         if flag == 'find':
             soup = parser.find(soup, rule_['p1'], rule_.get('p2', None), rule_.get('p3', None))

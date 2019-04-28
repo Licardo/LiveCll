@@ -7,6 +7,7 @@ from base import utils
 from zhongliuzixun import top_utils
 
 
+# 肿瘤咨询-最新
 class TopLatest(NetPost):
     # 输出目录
     out_dir = '../product/latest.txt'
