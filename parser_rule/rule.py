@@ -32,10 +32,13 @@ class Rule(object):
             soup = parser.find(soup, rule_['p1'], rule_.get('p2', None), rule_.get('p3', None))
         elif flag == 'find_all':
             items = parser.find_all(soup, rule_['p1'], rule_.get('p2', None), rule_.get('p3', None))
-            for soup in items:
-                rules = rule_.get('child', None)
-                sin, mul = self.parse(soup, rules, parser)
-                arr.append(sin)
+            rules = rule_.get('child', None)
+            if rules is None:
+                arr.extend(items)
+            else:
+                for soup in items:
+                    sin, mul = self.parse(soup, rules, parser)
+                    arr.append(sin)
         elif flag == 'dict':
             soup = soup[rule_['p1']]
         return soup, arr

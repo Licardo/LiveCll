@@ -1,0 +1,12 @@
+class DbInfo:
+    title = ''
+    image = ''
+    image_urls = ''
+    description = ''
+    source = ''
+    platform = ''
+    level = ''
+    top = ''
+    url = ''
+    type = ''
+    sub_title = ''

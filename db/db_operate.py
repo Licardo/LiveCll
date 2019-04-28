@@ -9,15 +9,15 @@ class DbOperator:
         cursor = db.cursor()
         index = DbOperator.query_size(cursor)
         for data in datas:
-            if DbOperator.find_data_for_url(cursor, data['url']) == 0:
+            if DbOperator.find_data_for_url(cursor, data.url) == 0:
                 # 如果数据库中不存在改调数据，执行插入操作
                 # try:
                 index += 1
                 sql = 'insert into cll (id, title, sub_title, url, image, image_urls, description, source, platform, ' \
                       'level, top, type) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s ) '
-                cursor.execute(sql, (index, data['title'], data['sub_title'], data['url'], data['image'],
-                                     data['image_urls'], data['description'], data['source'], data['platform'],
-                                     data['level'], data['top'], data['type']))
+                cursor.execute(sql, (index, data.title, data.sub_title, data.url, data.image,
+                                     data.image_urls, data.description, data.source, data.platform,
+                                     data.level, data.top, data.type))
                 db.commit()
                 # except pymysql.err.ProgrammingError:
                 #     db.rollback()

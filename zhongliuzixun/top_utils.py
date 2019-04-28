@@ -1,4 +1,5 @@
 import json
+from db import db_info
 
 
 class TopUtils:
@@ -6,20 +7,20 @@ class TopUtils:
 
     @staticmethod
     def change_dict(doc):
-        row = dict()
-        row['title'] = doc.get('title', '无标题')
-        row['image'] = doc.get('picUrl', '无链接')
-        row['image_urls'] = json.dumps(doc.get('picUrls', []))
-        row['description'] = ''
-        row['source'] = '最新资讯'
-        row['platform'] = '肿瘤资讯'
-        row['level'] = 3
-        row['top'] = False
-        row['url'] = doc.get('documentDetailUrl', '无链接')
-        row['type'] = '无'
-        row['sub_title'] = ''
+        row = db_info.DbInfo()
+        row.title = doc.get('title', '无标题')
+        row.image = doc.get('picUrl', '无链接')
+        row.image_urls = json.dumps(doc.get('picUrls', []))
+        row.description = ''
+        row.source = '最新资讯'
+        row.platform = '肿瘤资讯'
+        row.level = 3
+        row.top = False
+        row.url = doc.get('documentDetailUrl', '无链接')
+        row.type = '无'
+        row.sub_title = ''
         if len(doc.get('channels', [])) > 0:
-            row['sub_title'] = doc['channels'][0]['name']
+            row.sub_title = doc['channels'][0]['name']
         if len(doc.get('labels', [])) > 0:
-            row['type'] = doc['labels'][0].get('name', '')
+            row.type = doc['labels'][0].get('name', '')
         return row
