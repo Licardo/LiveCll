@@ -2,10 +2,11 @@ from flask import Flask
 import json
 from flask import abort
 from flask import make_response
-from db import test_db
+from db import db_operate
 
 app = Flask(__name__)
 
+# 09ca272c1feb245ed8807cadb23dd4e8
 
 tasks = [
     {
@@ -23,18 +24,22 @@ tasks = [
 ]
 
 
-@app.route('/todo/list/<int:task_id>', methods=['GET'])
+@app.route('/todo/list/<int:task_id>', methods=['GET'], )
 def index(task_id):
     ts = [task for task in tasks if task['id'] == task_id]
     if len(ts) == 0:
         abort(404)
-    return json.dumps(ts[0])
+    resp = make_response(json.dumps(ts[0]), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.route('/todo/list/get_item/<int:page_index>')
 def get_item(page_index):
-    datas = test_db.DbOperator.query(page_index)
-    return json.dumps(datas)
+    datas = db_operate.DbOperator.query(page_index)
+    resp = make_response(json.dumps(datas), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.errorhandler(404)

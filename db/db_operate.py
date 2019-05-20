@@ -10,7 +10,7 @@ class DbOperator:
         index = DbOperator.query_size(cursor)
         for data in datas:
             if DbOperator.find_data_for_url(cursor, data.url) == 0:
-                # 如果数据库中不存在改调数据，执行插入操作
+                # 如果数据库中不存在该条数据，执行插入操作
                 # try:
                 index += 1
                 sql = 'insert into cll (id, title, sub_title, url, image, image_urls, description, source, platform, ' \
@@ -29,7 +29,7 @@ class DbOperator:
         if page_index < 1:
             return None
         page_size = 30
-        sql = 'select * from cll_test where id < %d and id >= %d' % (page_index*page_size, (page_index-1)*page_size)
+        sql = 'select * from cll where id < %d and id >= %d' % (page_index*page_size, (page_index-1)*page_size)
         db = db_base.DbBase.connect()
         cursor = db.cursor()
         cursor.execute(sql)
@@ -54,6 +54,4 @@ class DbOperator:
 
 
 if __name__ == '__main__':
-    db = db_base.DbBase.connect()
-    cursor = db.cursor()
-    DbOperator.find_data(cursor, 'https://doctor.liangyihui.net/#/doc/49107')
+    DbOperator.query(1)
