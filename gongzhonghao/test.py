@@ -8,4 +8,4 @@ if __name__ == '__main__':
     datas = spider.get_all_article()
     # 插入数据库
     operator = DbOperator()
-    operator.insert(spider.handle_data(datas))
+    operator.insert(spider.handle_datas(datas))

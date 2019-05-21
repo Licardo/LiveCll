@@ -3,10 +3,14 @@ from gongzhonghao.wechat_login import WeChatLogin
 from gongzhonghao.wechat_gongzhonghao import WeChatGongZhongHao
 from gongzhonghao.wechat_gongzhonghao_content import WeChatContent
 from db.db_info import DbInfo
+from base.base import Base
 
 
 # 抓取公众号的入口
-class SpiderGZH(object):
+from parser_rule.html_parser import HtmlParser
+
+
+class SpiderGZH(Base):
 
     wechat_name = ''
     index = 0
@@ -36,7 +40,7 @@ class SpiderGZH(object):
         lists = content.get_content(token, fake_id, session, cookie, header)
         return lists
 
-    def handle_data(self, datas):
+    def handle_datas(self, datas, parser: HtmlParser = None):
         info_list = list()
         for data in datas:
             info = DbInfo()
