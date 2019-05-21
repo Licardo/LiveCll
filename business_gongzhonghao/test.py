@@ -1,4 +1,4 @@
-from gongzhonghao.spider_gzh import SpiderGZH
+from business_gongzhonghao.spider_gzh import SpiderGZH
 from db.db_operate import DbOperator
 
 if __name__ == '__main__':

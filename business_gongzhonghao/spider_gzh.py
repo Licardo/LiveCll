@@ -1,7 +1,7 @@
-from gongzhonghao.http_utils import HttpUtils
-from gongzhonghao.wechat_login import WeChatLogin
-from gongzhonghao.wechat_gongzhonghao import WeChatGongZhongHao
-from gongzhonghao.wechat_gongzhonghao_content import WeChatContent
+from business_gongzhonghao.http_utils import HttpUtils
+from business_gongzhonghao.wechat_login import WeChatLogin
+from business_gongzhonghao.wechat_gongzhonghao import WeChatGongZhongHao
+from business_gongzhonghao.wechat_gongzhonghao_content import WeChatContent
 from db.db_info import DbInfo
 from base.base import Base
 

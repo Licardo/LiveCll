@@ -1,5 +1,5 @@
 from db import db_operate
-from zhongliuzixun import top_latest
+from business_zhongliuzixun import top_latest
 
 
 class DbOperator:

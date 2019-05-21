@@ -63,6 +63,5 @@ if __name__ == '__main__':
     datas = list()
     for i in range(2):
         datas.extend(science.get_html(i+1))
-    # operate = db_operate.DbOperator()
-    # operate.insert(datas)
-    print(len(datas))
+    operate = db_operate.DbOperator()
+    operate.insert(datas)

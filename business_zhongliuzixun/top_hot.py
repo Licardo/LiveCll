@@ -1,6 +1,6 @@
 import json
 from base.net_post import NetPost
-from zhongliuzixun import top_utils
+from business_zhongliuzixun import top_utils
 from base import utils
 from db import db_operate
 

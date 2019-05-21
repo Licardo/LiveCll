@@ -1,10 +1,14 @@
 from base import net_get
 from parser_rule import rule, html_parser_plugin
 from db import db_info, db_operate
-
+from base.base import Base
 
 # 亿迎新生-科普专栏
-class PopularScience:
+from parser_rule.html_parser import HtmlParser
+
+
+class PopularScience(Base):
+
     rules = [{'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'containers'},
              {'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'pages js_show'},
              {'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'bd'},
@@ -27,8 +31,12 @@ class PopularScience:
         rul = rule.Rule()
         parser = html_parser_plugin.SoupBeautifulParser(str_json, 'html.parser')
         sin, mul = rul.parse(parser.get_parser(), self.rules, parser)
+        return self.handle_datas(mul, parser)
+
+    def handle_datas(self, datas, parser: HtmlParser = None):
         info_list = list()
-        for doc in mul:
+        rul = rule.Rule()
+        for doc in datas:
             csin, cmul = rul.parse(doc, self.child_rule1, parser)
             div, divs = rul.parse(doc, self.child_rule2, parser)
             info = db_info.DbInfo()
