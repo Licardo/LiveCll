@@ -42,6 +42,13 @@ def get_item(page_index):
     return resp
 
 
+@app.route('/todo/list/get_item/<int:page_min>/<int:page_max>')
+def get_item_for_row(page_min, page_max):
+    datas = db_operate.DbOperator.query_for_row(page_min, page_max)
+    resp = make_response(json.dumps(datas), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 @app.errorhandler(404)
 def not_found(error):
     print(error)

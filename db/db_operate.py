@@ -40,6 +40,23 @@ class DbOperator:
         return results
 
     @staticmethod
+    def query_for_row(page_min, page_max):
+        if page_min < 1:
+            return None
+        if page_min > page_max:
+            return None
+        sql = 'select * from cll where id >= %d and id <= %d' % (page_min, page_max)
+        print(sql)
+        db = db_base.DbBase.connect()
+        cursor = db.cursor()
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        cursor.close()
+        db.close()
+        print(results)
+        return results
+
+    @staticmethod
     def find_data_for_url(cursor, url):
         sql = "select count(*) from cll where url = '%s'" % url
         cursor.execute(sql)
