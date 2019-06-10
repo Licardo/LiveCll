@@ -62,7 +62,7 @@ class Main:
 
     # 从数据库中通过api将数据插入到bmob中
     @staticmethod
-    def database_bmob(self, start, end):
+    def database_bmob(start, end):
         ope = OperateData()
         ope.insert(ope.get_datas(start, end))
 
@@ -80,4 +80,5 @@ class Main:
 
 
 if __name__ == '__main__':
-    Main.execute()
+    # Main.execute()
+    Main.database_bmob(193, 242)

@@ -13,8 +13,8 @@ class TopUtils:
         row.image = doc.get('picUrl', '无链接')
         row.image_urls = json.dumps(doc.get('picUrls', []))
         row.description = ''
-        row.source = '最新资讯'
-        row.platform = '肿瘤资讯'
+        row.source = '肿瘤资讯'
+        row.platform = doc.get('platform', "最新资讯")
         row.level = 3
         row.top = False
         row.url = doc.get('documentDetailUrl', '无链接')

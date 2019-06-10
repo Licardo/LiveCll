@@ -29,6 +29,7 @@ class TopLatest(NetPost):
         for doc in list_doc:
             title = doc.get('title', '无标题')
             if utils.Utils.filter_content(title, top_utils.TopUtils.keys):
+                doc['platform'] = '最新资讯'
                 row = top_utils.TopUtils.change_dict(doc)
                 data.append(row)
                 print(title)
