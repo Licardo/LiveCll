@@ -7,7 +7,7 @@ from db.db_info import DbInfo
 
 
 # 肿瘤咨询-最热
-class ProfessionalPointNew(NetPost):
+class ClinicalTrials(NetPost):
 
     def handle_data(self, json_str):
         print(json_str['appmsg_list'])
@@ -53,7 +53,7 @@ class ProfessionalPointNew(NetPost):
 
 
 if __name__ == '__main__':
-    hot = ProfessionalPointNew()
+    hot = ClinicalTrials()
     datas = hot.get_data_plugin(0, 10)
     print(len(datas))
     db_operate.DbOperator.insert(datas)

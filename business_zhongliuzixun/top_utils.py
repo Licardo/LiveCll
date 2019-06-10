@@ -4,7 +4,7 @@ from db import db_info
 
 class TopUtils:
     keys = ['淋巴瘤', '慢淋', 'CLL', '李建勇', '杨申淼', '邱录贵', 'FCR', '伊布替尼', '靶向药', 'CAR-T', '慢性淋巴细胞白血病',
-            'MD安德森', '流式', 'FISH', '霍奇金']
+            'MD安德森', '流式', 'FISH', '霍奇金', '百济神州', '泽布替尼', 'CD20', '利妥昔单抗', '氟达拉滨']
 
     @staticmethod
     def change_dict(doc):

@@ -39,6 +39,8 @@ class PopularScience(Base):
         for doc in datas:
             csin, cmul = rul.parse(doc, self.child_rule1, parser)
             div, divs = rul.parse(doc, self.child_rule2, parser)
+            if div is None:
+                break
             info = db_info.DbInfo()
             info.title = div.find('h4').get_text()
             info.image = 'http://papweixin.ilvzhou.com' + csin['src']
@@ -58,5 +60,5 @@ class PopularScience(Base):
 if __name__ == '__main__':
     science = PopularScience()
     datas = science.get_html()
-    operate = db_operate.DbOperator()
-    operate.insert(datas)
+    # operate = db_operate.DbOperator()
+    # operate.insert(datas)

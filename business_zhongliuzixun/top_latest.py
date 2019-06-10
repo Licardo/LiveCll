@@ -31,20 +31,21 @@ class TopLatest(NetPost):
             if utils.Utils.filter_content(title, top_utils.TopUtils.keys):
                 row = top_utils.TopUtils.change_dict(doc)
                 data.append(row)
+                print(title)
                 # print(rows[0] + '\t' + rows[1])
-                with open(self.out_dir, 'a', encoding='utf-8') as file:
-                    file.write(str(row) + '\r\n')
+                # with open(self.out_dir, 'a', encoding='utf-8') as file:
+                #     file.write(str(row) + '\r\n')
         return data
 
     # 循环获取多页数据
     def loop_data(self, size):
-        open(self.out_dir, 'w')
+        # open(self.out_dir, 'w')
         datas = []
         for i in range(size):
             data = self.get_data_plugin(i)
             datas.extend(data)
         # pf_excel.Excel.write_excel(datas, 'paofan')
-        print(datas)
+        print(len(datas))
         print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
         return datas
 

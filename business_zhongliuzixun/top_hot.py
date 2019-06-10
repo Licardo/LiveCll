@@ -19,9 +19,9 @@ class TopHot(NetPost):
         return data
 
     # 公众号肿瘤咨询最新新闻
-    def get_data_plugin(self, index):
+    def get_data_plugin(self, index, count):
         url = "http://www.liangyihui.net:8080//api/doc/gettoplist"
-        data = {'filter': {'endTime': 0, 'pageIdx': index, 'pageSize': 1000, 'startTime': 0},
+        data = {'filter': {'endTime': 0, 'pageIdx': index, 'pageSize': count, 'startTime': 0},
                 'head': {'auth': '', 'auth2': '', 'cid': '', 'cver': '5.1', 'extensions': [{'name': '', 'value': ''}],
                          'sid': ''}, 'period': 0}
         header = {'content-type': "application/json;charset=UTF-8"}
@@ -30,5 +30,5 @@ class TopHot(NetPost):
 
 if __name__ == '__main__':
     hot = TopHot()
-    datas = hot.get_data_plugin(0)
+    datas = hot.get_data_plugin(0, 1000)
     db_operate.DbOperator.insert(datas)

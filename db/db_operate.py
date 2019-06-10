@@ -63,10 +63,17 @@ class DbOperator:
         return cursor.fetchone()[0]
 
     @staticmethod
-    def query_size(cursor):
+    def query_size(cursor=None):
+        db = None
+        if cursor is None:
+            db = db_base.DbBase.connect()
+            cursor = db.cursor()
         sql = 'select count(*) from cll'
         cursor.execute(sql)
         result = cursor.fetchone()
+        if db is not None:
+            cursor.close()
+            db.close()
         return result[0]
 
 
