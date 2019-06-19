@@ -10,6 +10,9 @@ from business_gongzhonghao.spider_gzh import SpiderGZH
 from db.db_operate import DbOperator
 from bmob.operate_data import OperateData
 
+from apscheduler.schedulers.blocking import BlockingScheduler
+import time
+
 
 class Main:
 
@@ -71,7 +74,7 @@ class Main:
         start = DbOperator.query_size()
         print(str(start))
         Main.zongliuzixun()
-        Main.yangshenmiao()
+        # Main.yangshenmiao()
         Main.linbaliuzhijia()
         Main.yiyingxinsheng()
         end = DbOperator.query_size()
@@ -81,4 +84,12 @@ class Main:
 
 if __name__ == '__main__':
     # Main.execute()
-    Main.database_bmob(193, 242)
+    # Main.database_bmob(193, 242)
+
+    # 定时服务 每天每小时执行一次
+    schedule = BlockingScheduler()
+    # 每天16-18点的0-4分钟执行 执行频率是5秒钟
+    schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/1')
+    # 每五秒执行一次
+    # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
+    schedule.start()
