@@ -21,7 +21,7 @@ class Main:
         # 肿瘤资讯
         # 最新
         top = TopLatest()
-        DbOperator.insert(top.loop_data(30))
+        DbOperator.insert(top.loop_data(150))
         # 最热
         hot = TopHot()
         DbOperator.insert(hot.get_data_plugin(0, 1000))
@@ -39,7 +39,7 @@ class Main:
         # 淋巴瘤
         # 专家说
         ppn = ProfessionalPointNew()
-        DbOperator.insert(ppn.get_data_plugin(0, 100))
+        DbOperator.insert(ppn.get_data_plugin(0, 200))
         # 免费医疗
         ct = ClinicalTrials()
         DbOperator.insert(ct.get_data_plugin(0, 10))
@@ -53,7 +53,7 @@ class Main:
         # 疾病百科
         de = DiseaseEncy()
         s_datas = list()
-        for i in range(2):
+        for i in range(3):
             s_datas.extend(de.get_html(i + 1))
         DbOperator.insert(s_datas)
         # 大咖讲堂
@@ -68,14 +68,18 @@ class Main:
     def database_bmob(start, end):
         ope = OperateData()
         ope.insert(ope.get_datas(start, end))
-
+        # ope.update(ope.get_datas(1, end))
     @staticmethod
     def execute():
         start = DbOperator.query_size()
         print(str(start))
+        # releaseTime
         Main.zongliuzixun()
-        # Main.yangshenmiao()
+        # insert
+        Main.yangshenmiao()
+        # sendtime
         Main.linbaliuzhijia()
+        # 无
         Main.yiyingxinsheng()
         end = DbOperator.query_size()
         print(str(start) + '===' + str(end))
@@ -84,12 +88,12 @@ class Main:
 
 if __name__ == '__main__':
     # Main.execute()
-    # Main.database_bmob(193, 242)
+    Main.database_bmob(412, 557)
 
-    # 定时服务 每天每小时执行一次
-    schedule = BlockingScheduler()
-    # 每天16-18点的0-4分钟执行 执行频率是5秒钟
-    schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/1')
-    # 每五秒执行一次
-    # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
-    schedule.start()
+    # # 定时服务 每天每小时执行一次
+    # schedule = BlockingScheduler()
+    # # 每天16-18点的0-4分钟执行 执行频率是5秒钟
+    # schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/1')
+    # # 每五秒执行一次
+    # # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
+    # schedule.start()

@@ -27,6 +27,8 @@ class DiseaseEncy(Base):
         url = 'http://papweixin.ilvzhou.com/article/index?config_id=14&column_id=370&page=%s' % index
         get = net_get.NetGet()
         str_json = get.get(url, header=header)
+        print('-------------亿迎新生--------------')
+        print(str(str_json))
         rul = rule.Rule()
         parser = html_parser_plugin.SoupBeautifulParser(str_json, 'html.parser')
         sin, mul = rul.parse(parser.get_parser(), self.rules, parser)
@@ -54,6 +56,7 @@ class DiseaseEncy(Base):
             info.url = 'http://papweixin.ilvzhou.com' + doc['href']
             info.type = '无'
             info.sub_title = div.find('p').get_text()
+            info.send_time = -1
             info_list.append(info)
         return info_list
 

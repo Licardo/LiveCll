@@ -30,27 +30,21 @@ class OperateData:
             vo['level'] = j[9]
             vo['top'] = j[10]
             vo['type'] = j[11]
+            vo['send_time'] = j[12]
             # vos.append(vo)
             b.insert('cll_data', vo)
 
-    def update(self):
+    def update(self, jsons):
         b = bmob.Bmob('3342bfd2beedca7937a33146715c93df', 'e37c4f58e5320b6dca4101ebe22da944')
-        resonse = b.find("cll_data", {'source': '淋巴瘤之家'})
+        resonse = b.find("cll_data", limit=200, skip=400)
         # print(resonse.jsonData)
         for item in resonse.jsonData['results']:
-            vo = dict()
-            vo['platform'] = item['platform']
-            vo['title'] = item['title']
-            vo['sub_title'] = item['sub_title']
-            vo['url'] = item['url']
-            vo['image'] = 'https://mmbiz.qpic.cn/mmbiz_png/y4URaX8bynKPg1LBzX26LkBib8pIGuadgEUV24AhlvjxzJub5KbvOHEFgthL6Z8obupfofKG8PeWov5rpFSfavA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1'
-            vo['image_urls'] = item['image_urls']
-            vo['description'] = item['description']
-            vo['source'] = item['source']
-            vo['level'] = item['level']
-            vo['top'] = item['top']
-            vo['type'] = item['type']
-            b.update('cll_data', item['objectId'], vo)
+            for j in jsons:
+                if item['url'] == j[3]:
+                    vo = dict()
+                    vo['send_time'] = j[12]
+                    b.update('cll_data', item['objectId'], vo)
+                    break
             pass
 
 

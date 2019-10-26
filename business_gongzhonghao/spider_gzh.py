@@ -55,5 +55,11 @@ class SpiderGZH(Base):
             info.url = data.get('link')
             info.type = '无'
             info.sub_title = data.get('digest')
+            info.send_time = data.get('update_time')
             info_list.append(info)
         return info_list
+
+
+if __name__ == '__main__':
+    gzh = SpiderGZH('杨申淼', 0)
+    gzh.get_all_article()

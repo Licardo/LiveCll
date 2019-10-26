@@ -24,6 +24,7 @@ class TopLatest(NetPost):
     # todo 抽象方法 父类会有声明
     # 网络数据处理逻辑
     def handle_data(self, req_json):
+        print(str(req_json))
         list_doc = req_json['docGroups'][0]['documents']
         data = []
         for doc in list_doc:
@@ -63,4 +64,4 @@ class TopLatest(NetPost):
 if __name__ == '__main__':
     # schedule_timer()
     top = TopLatest()
-    top.loop_data(30)
+    top.loop_data(1)

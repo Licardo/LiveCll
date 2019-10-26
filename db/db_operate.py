@@ -14,13 +14,24 @@ class DbOperator:
                 # try:
                 index += 1
                 sql = 'insert into cll (id, title, sub_title, url, image, image_urls, description, source, platform, ' \
-                      'level, top, type) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s ) '
+                      'level, top, type, send_time) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s ,%s) '
                 cursor.execute(sql, (index, data.title, data.sub_title, data.url, data.image,
                                      data.image_urls, data.description, data.source, data.platform,
-                                     data.level, data.top, data.type))
+                                     data.level, data.top, data.type, data.send_time))
                 db.commit()
                 # except pymysql.err.ProgrammingError:
                 #     db.rollback()
+        cursor.close()
+        db.close()
+
+    @staticmethod
+    def update_time(datas):
+        db = db_base.DbBase.connect()
+        cursor = db.cursor()
+        for data in datas:
+            sql = 'update cll set send_time = %s where url = %s'
+            cursor.execute(sql, (data.send_time, data.url))
+            db.commit()
         cursor.close()
         db.close()
 

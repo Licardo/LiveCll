@@ -39,6 +39,8 @@ class WeChatContent:
                 'type': '9'
             }
             query_fakeid_response = requests.get(article_url, cookies=cookies, headers=header, params=query_id_data)
+            print('-----------------杨申淼-------------------')
+            print(str(query_fakeid_response.json()))
             fakeid_list = query_fakeid_response.json().get('app_msg_list')
             contents.extend(fakeid_list)
             num -= 1

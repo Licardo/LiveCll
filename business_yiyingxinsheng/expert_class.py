@@ -42,6 +42,7 @@ class ExpertClass:
             info.url = 'http://papweixin.ilvzhou.com' + doc['href']
             info.type = '无'
             info.sub_title = div.find('p').get_text()
+            info.send_time = -1
             info_list.append(info)
         return info_list
 

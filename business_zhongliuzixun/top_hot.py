@@ -9,6 +9,7 @@ from db import db_operate
 class TopHot(NetPost):
 
     def handle_data(self, json_str):
+        print(str(json_str))
         list_doc = json_str['docGroups'][0]['documents']
         data = list()
         for doc in list_doc:
@@ -32,4 +33,4 @@ class TopHot(NetPost):
 if __name__ == '__main__':
     hot = TopHot()
     datas = hot.get_data_plugin(0, 1000)
-    db_operate.DbOperator.insert(datas)
+    # db_operate.DbOperator.insert(datas)

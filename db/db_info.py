@@ -10,3 +10,4 @@ class DbInfo:
     url = ''
     type = ''
     sub_title = ''
+    send_time = ''

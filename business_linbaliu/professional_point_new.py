@@ -28,6 +28,7 @@ class ProfessionalPointNew(NetPost):
                 row.top = False
                 row.url = doc.get('link', '无链接')
                 row.type = '无'
+                row.send_time = doc.get('sendtime', 0)
                 if len(doc.get('labels', [])) > 0:
                     row.type = doc['labels'][0].get('name', '')
                 data.append(row)
