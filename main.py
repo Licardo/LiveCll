@@ -87,7 +87,11 @@ class Main:
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
+    Main.execute()
+=======
     # Main.execute()
+>>>>>>> f4f0737eb1b44469bfcffb3f1e5bd2281868eabf
     # Main.database_bmob(412, 557)
 
     # 定时服务 每天每小时执行一次

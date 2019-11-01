@@ -17,3 +17,10 @@
 ##### 优点
 1. 方式一流程简单，技术难度低
 2. 可以抓取所有历史文章，不受限制
+
+### 服务开启
+
+1. 开启mysql服务  net start mysql
+2. 开启flask微服务 python test.py
+3. 开启定时任务,所有平台的爬虫(除杨申淼) python main.py
+4. 手动更新杨申淼任务 python ysm.py
