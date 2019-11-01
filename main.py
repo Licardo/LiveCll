@@ -87,8 +87,8 @@ class Main:
 
 
 if __name__ == '__main__':
-    # Main.execute()
-    Main.database_bmob(412, 557)
+    Main.execute()
+    # Main.database_bmob(412, 557)
 
     # # 定时服务 每天每小时执行一次
     # schedule = BlockingScheduler()
