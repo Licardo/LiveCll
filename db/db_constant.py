@@ -1,5 +1,5 @@
 HOST = 'localhost'
 USER = 'root'
-PW = 'zh326159'
+PW = 'root'
 DATABASE = 'qrz'
 CHARSET = 'utf8mb4'
