@@ -49,6 +49,11 @@ def get_item_for_row(page_min, page_max):
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+
+@app.route('/love/orange')
+def love():
+    return 'I love U Hon By Hao'
+
 @app.errorhandler(404)
 def not_found(error):
     print(error)
@@ -56,5 +61,5 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port='5000')
+    app.run(debug=False, host='172.21.0.16', port='8000')
 

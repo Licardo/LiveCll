@@ -7,7 +7,7 @@ class OperateData:
 
     def get_datas(self, page_min, page_max):
         net = NetGet()
-        url = 'http://0.0.0.0:8000/todo/list/get_item/%d/%d' % (page_min, page_max)
+        url = 'http://172.21.0.16:8000/todo/list/get_item/%d/%d' % (page_min, page_max)
         str_json = net.get(url)
         jsons = json.loads(str_json)
         return jsons

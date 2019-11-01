@@ -76,7 +76,7 @@ class Main:
         # releaseTime
         Main.zongliuzixun()
         # insert
-        Main.yangshenmiao()
+        # Main.yangshenmiao()
         # sendtime
         Main.linbaliuzhijia()
         # 无
@@ -87,13 +87,17 @@ class Main:
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     Main.execute()
+=======
+    # Main.execute()
+>>>>>>> f4f0737eb1b44469bfcffb3f1e5bd2281868eabf
     # Main.database_bmob(412, 557)
 
-    # # 定时服务 每天每小时执行一次
-    # schedule = BlockingScheduler()
-    # # 每天16-18点的0-4分钟执行 执行频率是5秒钟
-    # schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/1')
-    # # 每五秒执行一次
-    # # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
-    # schedule.start()
+    # 定时服务 每天每小时执行一次
+    schedule = BlockingScheduler()
+    # 每天16-18点的0-4分钟执行 执行频率是5秒钟
+    schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/12')
+    # 每五秒执行一次
+    # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
+    schedule.start()
