@@ -116,7 +116,7 @@ class DbOperator:
                 child_tab.source = child_info[3]
                 child_tab.platform = child_info[4]
                 child_tab.sort = child_info[5]
-                child_tab.show_type = child_tab[6]
+                child_tab.show_type = child_info[6]
                 child_tab.show = child_info[7]
                 tab.tab_child_infos.append(child_tab)
 
