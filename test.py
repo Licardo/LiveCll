@@ -3,6 +3,7 @@ import json
 from flask import abort
 from flask import make_response
 from db.db_operate import DbOperator
+from server.tab_info import InfoEncoder
 
 app = Flask(__name__)
 
@@ -65,7 +66,7 @@ def not_found(error):
 @app.route('/cll/tab/info')
 def get_tab_info():
     datas = DbOperator.get_tab_info()
-    resp = make_response(json.dumps(datas), 200)
+    resp = make_response(json.dumps(datas, cls=InfoEncoder), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
