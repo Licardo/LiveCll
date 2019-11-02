@@ -2,7 +2,7 @@ from flask import Flask
 import json
 from flask import abort
 from flask import make_response
-from db import db_operate
+from db.db_operate import DbOperator
 
 app = Flask(__name__)
 
@@ -34,9 +34,14 @@ def index(task_id):
     return resp
 
 
+@app.route('/love/orange')
+def love():
+    return 'I love U Hon By Hao'
+
+
 @app.route('/todo/list/get_item/<int:page_index>')
 def get_item(page_index):
-    datas = db_operate.DbOperator.query(page_index)
+    datas = DbOperator.query(page_index)
     resp = make_response(json.dumps(datas), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
@@ -44,20 +49,25 @@ def get_item(page_index):
 
 @app.route('/todo/list/get_item/<int:page_min>/<int:page_max>')
 def get_item_for_row(page_min, page_max):
-    datas = db_operate.DbOperator.query_for_row(page_min, page_max)
+    datas = DbOperator.query_for_row(page_min, page_max)
     resp = make_response(json.dumps(datas), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
 
-@app.route('/love/orange')
-def love():
-    return 'I love U Hon By Hao'
-
 @app.errorhandler(404)
 def not_found(error):
     print(error)
     return make_response(json.dumps({'error': 'Not Found'}), 404)
+
+
+# 获取app首页的标题和图片
+@app.route('/cll/tab/info')
+def get_tab_info():
+    datas = DbOperator.get_tab_info()
+    resp = make_response(json.dumps(datas), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 if __name__ == '__main__':

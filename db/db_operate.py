@@ -1,4 +1,6 @@
 from db import db_base
+from server.tab_info import TabInfo
+from server.tab_info import TabChildInfo
 
 
 class DbOperator:
@@ -86,6 +88,21 @@ class DbOperator:
             cursor.close()
             db.close()
         return result[0]
+
+    @staticmethod
+    def get_tab_info():
+        sql = 'select * from tab_info'
+        db = db_base.DbBase.connect()
+        cursor = db.cursor()
+        cursor.execute(sql)
+
+        results = cursor.fetchall()
+        # for info in results:
+        #     sql = 'select * from tab_child_info where tab_id = %s' % info[1]
+
+        cursor.close()
+        db.close()
+        return results
 
 
 if __name__ == '__main__':
