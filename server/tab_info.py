@@ -23,7 +23,7 @@ class TabChildInfo:
 class InfoEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, TabInfo):
-            return int(obj)
+            return json.dump()
         elif isinstance(obj, TabChildInfo):
             return float(obj)
         else:
