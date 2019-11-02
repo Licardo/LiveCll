@@ -1,4 +1,5 @@
 class TabInfo:
+    id = 0
     name = ''
     sort = 0
     icons_selected = ''
