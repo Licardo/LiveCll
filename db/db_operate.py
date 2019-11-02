@@ -109,6 +109,7 @@ class DbOperator:
             sql = 'select * from tab_child_info where tab_id = %s order by sort' % tab.id
             cursor.execute(sql)
             child_results = cursor.fetchall()
+            child_datas = list()
             for child_info in child_results:
                 child_tab = TabChildInfo()
                 child_tab.tab_id = child_info[1]
@@ -118,8 +119,9 @@ class DbOperator:
                 child_tab.sort = child_info[5]
                 child_tab.show_type = child_info[6]
                 child_tab.show = child_info[7]
-                tab.tab_child_infos.append(child_tab.__dict__)
+                child_datas.append(child_tab.__dict__)
 
+            tab.tab_child_infos = child_datas
             datas.append(tab.__dict__)
 
         cursor.close()
