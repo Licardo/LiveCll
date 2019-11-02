@@ -103,24 +103,24 @@ class DbOperator:
             tab.name = info[0]
             tab.icons_selected = info[1]
             tab.icons_unselected = info[2]
-            tab.sort = int(info[3])
-            tab.id = int(info[4])
+            tab.sort = info[3]
+            tab.id = info[4]
 
             sql = 'select * from tab_child_info where tab_id = %s order by sort' % tab.id
             cursor.execute(sql)
             child_results = cursor.fetchall()
             for child_info in child_results:
                 child_tab = TabChildInfo()
-                child_tab.tab_id = int(child_info[1])
+                child_tab.tab_id = child_info[1]
                 child_tab.tab_name = child_info[2]
                 child_tab.source = child_info[3]
                 child_tab.platform = child_info[4]
-                child_tab.sort = int(child_info[5])
+                child_tab.sort = child_info[5]
                 child_tab.show_type = child_info[6]
-                child_tab.show = int(child_info[7])
-                tab.tab_child_infos.append(child_tab)
+                child_tab.show = child_info[7]
+                tab.tab_child_infos.append(child_tab.__dict__)
 
-            datas.append(tab)
+            datas.append(tab.__dict__)
 
         cursor.close()
         db.close()
