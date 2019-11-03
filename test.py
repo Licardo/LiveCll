@@ -79,6 +79,14 @@ def get_home_info():
     return resp
 
 
+@app.route('/cll/info')
+def get_cll_info(source, platform):
+    datas = CllDB.get_cll_info(source, platform)
+    resp = make_response(json.dumps(datas), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
 if __name__ == '__main__':
     app.run(debug=False, host='172.21.0.16', port='8000')
 

@@ -84,3 +84,14 @@ class CllDB:
         cursor.close()
         db.close()
         return datas
+
+    @staticmethod
+    def get_cll_info(source, platform):
+        sql = 'select * from cll where source = %s and platform = %s' % (source, platform)
+        db = db_base.DbBase.connect()
+        cursor = db.cursor()
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        cursor.close()
+        db.close()
+        return results
