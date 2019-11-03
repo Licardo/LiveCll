@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 import json
 from flask import abort
 from flask import make_response
@@ -79,8 +80,10 @@ def get_home_info():
     return resp
 
 
-@app.route('/cll/info')
-def get_cll_info(source, platform):
+@app.route('/cll/info', methods=['get', 'post'])
+def get_cll_info():
+    source = request.args.get('source')
+    platform = request.args.get('platform')
     datas = CllDB.get_cll_info(source, platform)
     resp = make_response(json.dumps(datas), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
