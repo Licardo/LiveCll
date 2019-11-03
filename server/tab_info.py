@@ -1,7 +1,5 @@
-import json
 
-
-class TabInfo(json.JSONEncoder):
+class TabInfo:
     id = 0
     name = ''
     sort = 0
@@ -18,13 +16,3 @@ class TabChildInfo:
     sort = 0
     show_type = ''
     show = 1
-
-
-class InfoEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, TabInfo):
-            return json.dump()
-        elif isinstance(obj, TabChildInfo):
-            return float(obj)
-        else:
-            return json.JSONEncoder.default(self, obj)

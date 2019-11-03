@@ -3,7 +3,7 @@ import json
 from flask import abort
 from flask import make_response
 from db.db_operate import DbOperator
-from server.tab_info import InfoEncoder
+from .server.cll_db import CllDB
 
 app = Flask(__name__)
 
@@ -65,7 +65,15 @@ def not_found(error):
 # 获取app首页的标题和图片
 @app.route('/cll/tab/info')
 def get_tab_info():
-    datas = DbOperator.get_tab_info()
+    datas = CllDB.get_tab_info()
+    resp = make_response(json.dumps(datas), 200)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+@app.route('/cll/home/info')
+def get_home_info():
+    datas = CllDB.get_home_info()
     resp = make_response(json.dumps(datas), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
