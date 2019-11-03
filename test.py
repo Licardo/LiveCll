@@ -84,7 +84,8 @@ def get_home_info():
 def get_cll_info():
     source = request.args.get('source')
     platform = request.args.get('platform')
-    datas = CllDB.get_cll_info(source, platform)
+    page = request.args.get('page')
+    datas = CllDB.get_cll_info(source, platform, page)
     resp = make_response(json.dumps(datas), 200)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
