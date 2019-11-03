@@ -1,20 +1,17 @@
 from db import db_base
 
-
 class DbOperator:
 
     @staticmethod
     def insert(datas):
         db = db_base.DbBase.connect()
         cursor = db.cursor()
-        # index = DbOperator.query_size(cursor)
         for data in datas:
             if DbOperator.find_data_for_url(cursor, data.url) == 0:
                 # 如果数据库中不存在该条数据，执行插入操作
                 # try:
-                # index += 1
                 sql = 'insert into cll (title, sub_title, url, image, image_urls, description, source, platform, ' \
-                      'level, top, type, send_time) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s ,%s) '
+                      'level, top, type, send_time) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s ,%s) '
                 cursor.execute(sql, (data.title, data.sub_title, data.url, data.image,
                                      data.image_urls, data.description, data.source, data.platform,
                                      data.level, data.top, data.type, data.send_time))
