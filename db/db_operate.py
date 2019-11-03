@@ -1,5 +1,6 @@
 from db import db_base
 
+
 class DbOperator:
 
     @staticmethod
