@@ -86,8 +86,10 @@ class CllDB:
         return datas
 
     @staticmethod
-    def get_cll_info(source, platform):
-        sql = 'select * from cll where source = %s and platform = %s' % (source, platform)
+    def get_cll_info(source, platform, page):
+        count = 20
+        sql = 'select * from cll where source = %s and platform = %s order by send_time desc limit %s offset %s' % \
+              (source, platform, count, (page-1)*20)
         db = db_base.DbBase.connect()
         cursor = db.cursor()
         cursor.execute(sql)
