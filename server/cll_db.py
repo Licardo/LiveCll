@@ -2,6 +2,7 @@ from server.tab_info import TabInfo
 from server.tab_info import TabChildInfo
 from server.home_info import HomeTitle
 from server.home_info import HomeContent
+from server.cll_info import CllInfo
 from db import db_base
 
 
@@ -95,6 +96,23 @@ class CllDB:
         cursor = db.cursor()
         cursor.execute(sql)
         results = cursor.fetchall()
+        datas = []
+        for info in results:
+            cll_info = CllInfo()
+            cll_info.id = info[0]
+            cll_info.title = info[1]
+            cll_info.sub_title = info[2]
+            cll_info.url = info[3]
+            cll_info.image = info[4]
+            cll_info.image_urls = info[5]
+            cll_info.description = info[6]
+            cll_info.source = info[7]
+            cll_info.platform = info[8]
+            cll_info.level = info[9]
+            cll_info.top = info[10]
+            cll_info.type = info[11]
+            cll_info.send_time = info[12]
+            datas.append(cll_info.__dict__)
         cursor.close()
         db.close()
-        return results
+        return datas
