@@ -3,7 +3,7 @@ import json
 from flask import abort
 from flask import make_response
 from db.db_operate import DbOperator
-from .server.cll_db import CllDB
+from server.cll_db import CllDB
 
 app = Flask(__name__)
 
