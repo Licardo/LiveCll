@@ -98,9 +98,9 @@ class CllDB:
             sql += s
         if platform is not None and platform != '""':
             if sql.find('where') != -1:
-                pl = f'and platform = %s ' % platform
+                pl = 'and platform = %s ' % platform
             else:
-                pl = f'where platform = %s ' % platform
+                pl = 'where platform = %s ' % platform
             sql += pl
         o = 'order by send_time desc limit %d offset %d' % (count, (p-1)*20)
         sql += o
