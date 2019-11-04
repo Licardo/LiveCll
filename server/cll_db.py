@@ -93,18 +93,17 @@ class CllDB:
         # sql = 'select * from cll where source = %s and platform = %s order by send_time desc limit %d offset %d' % \
         #       (source, platform, count, (p-1)*20)
         sql = "select * from cll "
-        if source is not None:
-            s = f'where source = {source} '
+        if source is not None and source != '""':
+            s = 'where source = %s ' % source
             sql += s
-        if platform is not None:
-            if sql.endswith('%s '):
-                p = f'and platform = {platform} '
+        if platform is not None and platform != '""':
+            if sql.find('where') != -1:
+                pl = f'and platform = %s ' % platform
             else:
-                p = f'where platform = {platform} '
-            sql += p
-        o = f'order by send_time desc limit {count} offset {(p-1)*20}'
+                pl = f'where platform = %s ' % platform
+            sql += pl
+        o = 'order by send_time desc limit %d offset %d' % (count, (p-1)*20)
         sql += o
-        print(str(sql))
 
         db = db_base.DbBase.connect()
         cursor = db.cursor()
