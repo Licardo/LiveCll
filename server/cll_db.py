@@ -97,13 +97,14 @@ class CllDB:
             s = f'where source = {source} '
             sql += s
         if platform is not None:
-            str = ''
             if sql.endswith('%s '):
-                str = f'and platform = {platform} '
+                p = f'and platform = {platform} '
             else:
-                str = f'where platform = {platform} '
-            sql += str
+                p = f'where platform = {platform} '
+            sql += p
         sql += f'order by send_time desc limit {count} offset {(p-1)*20}'
+
+        print(str(sql))
 
         db = db_base.DbBase.connect()
         cursor = db.cursor()
