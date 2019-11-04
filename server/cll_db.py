@@ -102,8 +102,8 @@ class CllDB:
             else:
                 p = f'where platform = {platform} '
             sql += p
-        sql += f'order by send_time desc limit {count} offset {(p-1)*20}'
-
+        o = f'order by send_time desc limit {count} offset {(p-1)*20}'
+        sql += o
         print(str(sql))
 
         db = db_base.DbBase.connect()
