@@ -90,8 +90,21 @@ class CllDB:
     def get_cll_info(source, platform, page):
         count = 20
         p = int(page)
-        sql = 'select * from cll where source = %s and platform = %s order by send_time desc limit %d offset %d' % \
-              (source, platform, count, (p-1)*20)
+        # sql = 'select * from cll where source = %s and platform = %s order by send_time desc limit %d offset %d' % \
+        #       (source, platform, count, (p-1)*20)
+        sql = "select * from cll "
+        if source is not None:
+            s = f'where source = {source} '
+            sql += s
+        if platform is not None:
+            str = ''
+            if sql.endswith('%s '):
+                str = f'and platform = {platform} '
+            else:
+                str = f'where platform = {platform} '
+            sql += str
+        sql += f'order by send_time desc limit {count} offset {(p-1)*20}'
+
         db = db_base.DbBase.connect()
         cursor = db.cursor()
         cursor.execute(sql)
