@@ -94,7 +94,7 @@ if __name__ == '__main__':
     schedule = BlockingScheduler()
     # 每天16-18点的0-4分钟执行 执行频率是5秒钟
     # schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/12')
-    schedule.add_job(func=Main.execute(), trigger='cron', hour='12', minute='30')
+    schedule.add_job(func=Main.execute, trigger='cron', hour='12', minute='30')
     # 每五秒执行一次
     # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
     schedule.start()
