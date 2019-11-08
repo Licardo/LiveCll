@@ -101,14 +101,10 @@ if __name__ == '__main__':
     # 3.misfire_grace_time：设想和上述coalesce类似的场景，如果一个job本来14:00有一次执行，但是由于某种原因没有被调度上，
     # 现在14:01了，这个14:00的运行实例被提交时，会检查它预订运行的时间和当下时间的差值（这里是1分钟），大于我们设置的30秒限制，
     # 那么这个运行实例不会被执行。
-    job_defaults = {
-        'coalesce': True,
-        'max_instances': 3,
-        'misfire_grace_time': 300
-    }
+
     # 每天16-18点的0-4分钟执行 执行频率是5秒钟
     # schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/12')
-    schedule.add_job(func=Main.execute, job_defaults=job_defaults, trigger='cron', hour='12', minute='30')
+    schedule.add_job(func=Main.execute, coalesce=True, max_instances=3, misfire_grace_time=300, trigger='cron', hour='12', minute='30')
     # 每五秒执行一次
     # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
     schedule.start()
