@@ -21,7 +21,7 @@ class Main:
         # 肿瘤资讯
         # 最新
         top = TopLatest()
-        DbOperator.insert(top.loop_data(150))
+        DbOperator.insert(top.get_all_data())
         # 最热
         hot = TopHot()
         DbOperator.insert(hot.get_data_plugin(0, 1000))
@@ -39,13 +39,13 @@ class Main:
         # 淋巴瘤
         # 专家说
         ppn = ProfessionalPointNew()
-        DbOperator.insert(ppn.get_data_plugin(0, 200))
+        DbOperator.insert(ppn.get_data_plugin())
         # 免费医疗
         ct = ClinicalTrials()
-        DbOperator.insert(ct.get_data_plugin(0, 10))
+        DbOperator.insert(ct.get_data_plugin())
         # 淋巴瘤快讯
         lbll = LinBaLiuLatest()
-        DbOperator.insert(lbll.get_data_plugin(0, 10))
+        DbOperator.insert(lbll.get_data_plugin())
 
     @staticmethod
     def yiyingxinsheng():
@@ -69,6 +69,7 @@ class Main:
         ope = OperateData()
         ope.insert(ope.get_datas(start, end))
         # ope.update(ope.get_datas(1, end))
+
     @staticmethod
     def execute():
         start = DbOperator.query_size()
@@ -83,7 +84,10 @@ class Main:
         Main.yiyingxinsheng()
         end = DbOperator.query_size()
         print(str(start) + '===' + str(end))
-        Main.database_bmob(start, end)
+
+        # Main.database_bmob(start, end)
+
+        print(str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
 
 
 if __name__ == '__main__':
@@ -103,8 +107,6 @@ if __name__ == '__main__':
     # 那么这个运行实例不会被执行。
 
     # 每天16-18点的0-4分钟执行 执行频率是5秒钟
-    # schedule.add_job(func=Main.execute, trigger='cron', month='1-12', day='1-31', hour='*/12')
     schedule.add_job(func=Main.execute, coalesce=True, max_instances=3, misfire_grace_time=300, trigger='cron', hour='12', minute='30')
     # 每五秒执行一次
-    # schedule.add_job(func=loop_data, args=(1,), trigger='interval', seconds=5)
     schedule.start()

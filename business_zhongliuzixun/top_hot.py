@@ -2,7 +2,6 @@ import json
 from base.net_post import NetPost
 from business_zhongliuzixun import top_utils
 from base import utils
-from db import db_operate
 
 
 # 肿瘤咨询-最热
@@ -18,6 +17,7 @@ class TopHot(NetPost):
                 doc['platform'] = '最热资讯'
                 row = top_utils.TopUtils.change_dict(doc)
                 data.append(row)
+                print(doc['title'])
         return data
 
     # 公众号肿瘤咨询最新新闻
