@@ -22,8 +22,11 @@ class TopLatest(NetPost):
         # print(str(req_json))
         print(str(self.page_index))
         self.page_index += 1
-        list_doc = req_json['docGroups'][0]['documents']
         data = []
+        list_doc = req_json['docGroups'][0]['documents']
+        if req_json is None or req_json['docGroups'] is None or len(req_json['docGroups']) < 1:
+            return data
+
         for doc in list_doc:
             title = doc.get('title', '无标题')
             if utils.Utils.filter_content(title, top_utils.TopUtils.keys):
