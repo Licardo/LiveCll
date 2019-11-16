@@ -107,6 +107,7 @@ if __name__ == '__main__':
     # 那么这个运行实例不会被执行。
 
     # 每天16-18点的0-4分钟执行 执行频率是5秒钟
-    schedule.add_job(func=Main.execute, coalesce=True, max_instances=3, misfire_grace_time=300, trigger='cron', hour='12', minute='30')
+    schedule.add_job(func=Main.execute, coalesce=True, max_instances=3, misfire_grace_time=300, trigger='cron',
+                     hour='12, 19', minute='30')
     # 每五秒执行一次
     schedule.start()
