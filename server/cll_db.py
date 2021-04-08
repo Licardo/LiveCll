@@ -24,7 +24,7 @@ class CllDB:
             tab.sort = info[3]
             tab.id = info[4]
 
-            sql = 'select * from tab_child_info where tab_id = %s order by sort' % tab.id
+            sql = "select * from tab_child_info where tab_id = '{}' order by sort".format(tab.id)
             cursor.execute(sql)
             child_results = cursor.fetchall()
             child_datas = list()
@@ -64,7 +64,7 @@ class CllDB:
             tab.sort = info[4]
             tab.id = info[5]
 
-            sql = 'select * from home_content where title_id = %s order by sort' % tab.id
+            sql = "select * from home_content where title_id = '{}' order by sort".format(tab.id)
             cursor.execute(sql)
             child_results = cursor.fetchall()
             child_datas = list()
@@ -94,7 +94,7 @@ class CllDB:
         #       (source, platform, count, (p-1)*20)
         sql = "select * from cll "
         if source is not None and source != '""':
-            s = 'where source = %s' % '"'+source+'"'
+            s = 'where source = ' % '"'+source+'"'
             sql += s
         if platform is not None and platform != '""':
             if sql.find('where') != -1:
