@@ -10,9 +10,9 @@ class ExpertClass:
              {'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'bd'},
              {'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'list-view'},
              {'p0': 'find_all', 'p1': 'a'}]
-    child_rule1 = [{'p0': 'find','p1': 'div', 'p2': 'class_', 'p3': 'weui-media-box__hd'},
+    child_rule1 = [{'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'weui-media-box__hd'},
                    {'p0': 'find', 'p1': 'img'}]
-    child_rule2 = [{'p0': 'find','p1': 'div', 'p2': 'class_', 'p3': 'weui-media-box__bd'}]
+    child_rule2 = [{'p0': 'find', 'p1': 'div', 'p2': 'class_', 'p3': 'weui-media-box__bd'}]
 
     url = 'http://papweixin.ilvzhou.com/article/index?config_id=14&column_id=386'
     header = {'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
@@ -31,8 +31,8 @@ class ExpertClass:
             csin, cmul = rul.parse(doc, self.child_rule1, parser)
             div, divs = rul.parse(doc, self.child_rule2, parser)
             info = db_info.DbInfo()
-            info.title = div.find('h4').get_text()
-            info.image = 'http://papweixin.ilvzhou.com' + csin['src']
+            info.title = '' if div is None else div.find('h4').get_text()
+            info.image = '' if csin is None else 'http://papweixin.ilvzhou.com' + csin['src']
             info.image_urls = ''
             info.description = ''
             info.source = '亿迎新生患者关爱中心'
@@ -41,7 +41,7 @@ class ExpertClass:
             info.top = False
             info.url = 'http://papweixin.ilvzhou.com' + doc['href']
             info.type = '无'
-            info.sub_title = div.find('p').get_text()
+            info.sub_title = '' if div is None else div.find('p').get_text()
             info.send_time = -1
             info_list.append(info)
         return info_list
