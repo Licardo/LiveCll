@@ -29,3 +29,6 @@ class NetPost(ABC):
     @abstractmethod
     def handle_data(self, json_str):
         pass
+
+if __name__ == '__main__':
+    print('sss')
