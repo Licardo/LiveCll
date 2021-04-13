@@ -91,11 +91,11 @@ class Main:
 
 
 if __name__ == '__main__':
-    # Main.execute()
+    Main.execute()
     # Main.database_bmob(412, 557)
 
     # 定时服务 每天每小时执行一次
-    schedule = BlockingScheduler()
+    #schedule = BlockingScheduler()
 
     # 1.coalesce：当由于某种原因导致某个job积攒了好几次没有实际运行（比如说系统挂了5分钟后恢复，有一个任务是每分钟跑一次的，
     # 按道理说这5分钟内本来是“计划”运行5次的，但实际没有执行），如果coalesce为True，下次这个job被submit给executor时，只会执行1次，
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     # 那么这个运行实例不会被执行。
 
     # 每天16-18点的0-4分钟执行 执行频率是5秒钟
-    schedule.add_job(func=Main.execute, coalesce=True, max_instances=3, misfire_grace_time=300, trigger='cron',
-                     hour='12, 19', minute='30')
+    # schedule.add_job(func=Main.execute, coalesce=True, max_instances=3, misfire_grace_time=300, trigger='cron',
+    #                 hour='12, 19', minute='30')
     # 每五秒执行一次
-    schedule.start()
+    # schedule.start()
