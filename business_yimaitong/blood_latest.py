@@ -1,30 +1,38 @@
+from base import utils
 from base.net_post import NetPost
-import requests
+from business_zhongliuzixun import top_utils
 
 
 class Blood(NetPost):
 
     def handle_data(self, json_str):
-        print(str(json_str))
+        print(json_str['data_list'].__len__())
+        print(json_str)
+        infos = json_str['data_list']
+        data = []
+        for info in infos:
+            if utils.Utils.filter_content(info['title'], top_utils.TopUtils.keys):
+                doc = {'title': info['title'], 'platform': info['copyfrom'], 'picUrl': info['thumb'], 'picUrls': [],
+                       'documentDetailUrl': info['url'], 'releaseTime': info['updatetime']}
+                row = top_utils.TopUtils.change_dict(doc)
+                row.description = info['description']
+                row.source = info['copyfrom']
+                row.type = info['type']
+                data.append(row)
+        return data
 
-    # 公众号肿瘤咨询最新新闻
-    def get_data_plugin(self):
+    def get_data_plugin(self, index):
         url = "https://m.medlive.cn/cms/ajax/cms_load_more.ajax.php"
         header = {'content-type': "application/x-www-form-urlencoded",
-                  # 'sec-ch-ua': "'Google Chrome';v='89', 'Chromium';v='89', ';Not A Brand';v='99'",
-                  # 'user-agent': "Chrome/172.16.20.105",
-                  # 'accept-encoding': "gzip, deflate, br",
-                  # 'referer': "https://m.medlive.cn/branch/researchlist/7?_wx=1",
-                  # 'accept': "application/json, text/javascript, */*; q=0.01",
                   'content-length': "50",
                   'authority': "m.medlive.cn",
                   'sec-fetch-site': "same-origin",
                   'sec-fetch-mode': "cors"
                   }
-        req = requests.post(url, data={'start': 0, 'branch': '7', 'cat': 'research'}, headers=header)
-        print(str(req.json()))
+        params = {'start': index, 'branch': '7', 'cat': 'research'}
+        return self.get_data(url, params, header)
 
 
 if __name__ == '__main__':
     blood = Blood()
-    blood.get_data_plugin()
+    blood.get_data_plugin(0)

@@ -53,16 +53,17 @@ class CllDB:
         cursor = db.cursor()
         cursor.execute(sql)
         results = cursor.fetchall()
+        print(results)
 
         datas = list()
         for info in results:
             tab = HomeTitle()
-            tab.style = info[0]
-            tab.tile = info[1]
+            tab.style = info[1]
+            tab.title = info[5]
             tab.image_url = info[2]
             tab.click_url = info[3]
             tab.sort = info[4]
-            tab.id = info[5]
+            tab.id = info[0]
 
             sql = "select * from home_content where title_id = '{}' order by sort".format(tab.id)
             cursor.execute(sql)
@@ -70,12 +71,12 @@ class CllDB:
             child_datas = list()
             for child_info in child_results:
                 child_tab = HomeContent()
-                child_tab.content = child_info[0]
-                child_tab.image_url = child_info[1]
-                child_tab.click_url = child_info[2]
-                child_tab.sort = child_info[3]
-                child_tab.description = child_info[4]
-                child_tab.id = child_info[5]
+                child_tab.content = child_info[1]
+                child_tab.image_url = child_info[2]
+                child_tab.click_url = child_info[3]
+                child_tab.sort = child_info[4]
+                child_tab.description = child_info[5]
+                child_tab.id = child_info[0]
                 child_tab.title_id = child_info[6]
                 child_datas.append(child_tab.__dict__)
 

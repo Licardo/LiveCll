@@ -4,10 +4,11 @@ from abc import abstractmethod, ABC
 
 
 class NetPost(ABC):
+
     # 发起post请求
     def post(self, url, param, header, stream=True):
         if type(param) == dict:
-            data = json.dump(param)
+            data = param
         elif type(param) == str:
             data = param
         req = requests.post(url, data=data, headers=header)
@@ -29,6 +30,7 @@ class NetPost(ABC):
     @abstractmethod
     def handle_data(self, json_str):
         pass
+
 
 if __name__ == '__main__':
     print('sss')
