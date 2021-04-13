@@ -1,6 +1,6 @@
 class HomeTitle:
     style = ''
-    tile = ''
+    title = ''
     image_url = ''
     click_url = ''
     sort = 0

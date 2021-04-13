@@ -92,5 +92,5 @@ def get_cll_info():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='172.16.20.105', port='8000')
+    app.run(debug=False, host='127.0.0.1', port='8000')
 
